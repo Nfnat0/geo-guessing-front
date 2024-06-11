@@ -1,0 +1,32 @@
+.home-screen {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  height: 100vh;
+}
+
+.home-screen h1 {
+  margin-bottom: 20px;
+}
+
+.home-screen select {
+  padding: 10px;
+  margin-bottom: 20px;
+  font-size: 16px;
+}
+
+.home-screen button {
+  padding: 10px 20px;
+  font-size: 16px;
+  background-color: #007bff;
+  color: white;
+  border: none;
+  cursor: pointer;
+  border-radius: 5px;
+}
+
+.home-screen button:disabled {
+  background-color: #cccccc;
+  cursor: not-allowed;
+}

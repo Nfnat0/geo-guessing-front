@@ -1,0 +1,44 @@
+.image-area {
+  position: relative;
+  height: 40vh;
+}
+
+.image-area img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.nav-button {
+  position: absolute;
+  background: rgba(0, 0, 0, 0.5);
+  color: white;
+  border: none;
+  padding: 10px;
+  cursor: pointer;
+  border-radius: 5px;
+}
+
+.nav-button.north {
+  top: 10px;
+  left: 50%;
+  transform: translateX(-50%);
+}
+
+.nav-button.east {
+  top: 50%;
+  right: 10px;
+  transform: translateY(-50%);
+}
+
+.nav-button.south {
+  bottom: 10px;
+  left: 50%;
+  transform: translateX(-50%);
+}
+
+.nav-button.west {
+  top: 50%;
+  left: 10px;
+  transform: translateY(-50%);
+}
