@@ -1,8 +1,16 @@
-import React, { useRef, useEffect } from "react";
+import React, { useRef, useEffect, useState } from "react";
 import "./MapArea.css";
 
-const MapArea = ({ startPoint, onSelectCoords }) => {
+const MapArea = ({
+  startPoint,
+  correctAnswer,
+  selectedCoords,
+  showCorrectAnswer,
+  onSelectCoords,
+}) => {
   const mapRef = useRef(null);
+  const [map, setMap] = useState(null);
+  const [markers, setMarkers] = useState([]);
 
   useEffect(() => {
     const loadGoogleMaps = (callback) => {
@@ -19,25 +27,53 @@ const MapArea = ({ startPoint, onSelectCoords }) => {
     };
 
     loadGoogleMaps(() => {
-      const map = new window.google.maps.Map(mapRef.current, {
+      const newMap = new window.google.maps.Map(mapRef.current, {
         center: startPoint,
         zoom: 14,
         disableDefaultUI: true,
       });
+      setMap(newMap);
+    });
+  }, [startPoint]);
 
-      let marker = new window.google.maps.Marker({
-        position: startPoint,
-        map: map,
-        draggable: true,
-      });
+  useEffect(() => {
+    if (map && showCorrectAnswer && selectedCoords) {
+      const newMarkers = [
+        new window.google.maps.Marker({
+          position: selectedCoords,
+          map: map,
+          label: "Your Answer",
+        }),
+        new window.google.maps.Marker({
+          position: correctAnswer,
+          map: map,
+          label: "Correct Answer",
+        }),
+      ];
+      setMarkers(newMarkers);
 
+      map.panTo(correctAnswer);
+    }
+  }, [map, showCorrectAnswer, selectedCoords, correctAnswer]);
+
+  useEffect(() => {
+    if (map && !showCorrectAnswer) {
       map.addListener("click", (e) => {
         const coords = { lat: e.latLng.lat(), lng: e.latLng.lng() };
         onSelectCoords(coords);
-        marker.setPosition(coords);
+
+        if (markers.length > 0) {
+          markers[0].setPosition(coords);
+        } else {
+          const newMarker = new window.google.maps.Marker({
+            position: coords,
+            map: map,
+          });
+          setMarkers([newMarker]);
+        }
       });
-    });
-  }, [startPoint, onSelectCoords]);
+    }
+  }, [map, markers, showCorrectAnswer, onSelectCoords]);
 
   return <div ref={mapRef} className="map-area" />;
 };

@@ -10,6 +10,7 @@ const GameScreen = () => {
   const navigate = useNavigate();
   const [data, setData] = useState(null);
   const [selectedCoords, setSelectedCoords] = useState(null);
+  const [showCorrectAnswer, setShowCorrectAnswer] = useState(false);
 
   useEffect(() => {
     axios
@@ -24,15 +25,22 @@ const GameScreen = () => {
 
   const handleConfirm = () => {
     if (selectedCoords) {
-      navigate("/result", { state: { data, selectedCoords } });
+      setShowCorrectAnswer(true);
     }
   };
 
   return data ? (
     <div className="game-screen">
-      <ImageArea images={data.images} />
+      <ImageArea
+        images={data.images}
+        correctImage={data.correctAnswerImage}
+        showCorrectAnswer={showCorrectAnswer}
+      />
       <MapArea
         startPoint={data.startPoint}
+        correctAnswer={data.correctAnswer}
+        selectedCoords={selectedCoords}
+        showCorrectAnswer={showCorrectAnswer}
         onSelectCoords={setSelectedCoords}
       />
       <div className="buttons">

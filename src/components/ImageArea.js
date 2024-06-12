@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import "./ImageArea.css";
 
-const ImageArea = ({ images }) => {
+const ImageArea = ({ images, correctImage, showCorrectAnswer }) => {
   const [currentIndex, setCurrentIndex] = useState(0);
 
   const handleDirection = (direction) => {
@@ -11,9 +11,11 @@ const ImageArea = ({ images }) => {
     if (direction === "west") setCurrentIndex(3);
   };
 
+  const imageSet = showCorrectAnswer ? [correctImage, ...images] : images;
+
   return (
     <div className="image-area">
-      <img src={images[currentIndex]} alt="current view" />
+      <img src={imageSet[currentIndex]} alt="current view" />
       <button
         className="nav-button north"
         onClick={() => handleDirection("north")}
