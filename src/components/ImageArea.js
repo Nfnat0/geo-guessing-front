@@ -11,11 +11,16 @@ const ImageArea = ({ images, correctImage, showCorrectAnswer }) => {
     if (direction === "west") setCurrentIndex(3);
   };
 
-  const imageSet = showCorrectAnswer ? [correctImage, ...images] : images;
+  const handleShowCorrect = () => {
+    setCurrentIndex(-1); // Set to a special index for the correct image
+  };
 
   return (
     <div className="image-area">
-      <img src={imageSet[currentIndex]} alt="current view" />
+      <img
+        src={currentIndex === -1 ? correctImage : images[currentIndex]}
+        alt="current view"
+      />
       <button
         className="nav-button north"
         onClick={() => handleDirection("north")}
@@ -40,6 +45,11 @@ const ImageArea = ({ images, correctImage, showCorrectAnswer }) => {
       >
         West
       </button>
+      {showCorrectAnswer && (
+        <button className="nav-button correct" onClick={handleShowCorrect}>
+          Show Correct
+        </button>
+      )}
     </div>
   );
 };

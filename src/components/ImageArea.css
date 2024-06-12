@@ -46,3 +46,8 @@
   left: 10px;
   transform: translateY(-50%);
 }
+
+.nav-button.correct {
+  top: 10px;
+  right: 10px;
+}
