@@ -1,23 +1,11 @@
-import React, { useState, useEffect } from "react";
+import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
-import axios from "axios";
 import "./HomeScreen.css";
 
 const HomeScreen = () => {
-  const [coordinates, setCoordinates] = useState([]);
+  const coordinateIds = [1, 2, 3];
   const [selectedId, setSelectedId] = useState(1);
   const navigate = useNavigate();
-
-  useEffect(() => {
-    axios
-      .get(`${process.env.REACT_APP_API_ENDPOINT}/coordinates`)
-      .then((response) => {
-        setCoordinates(response.data);
-      })
-      .catch((error) => {
-        console.error("Error fetching data:", error);
-      });
-  }, []);
 
   const handlePlay = () => {
     if (selectedId) {
@@ -35,9 +23,9 @@ const HomeScreen = () => {
         <option value="" disabled>
           Select a coordinate
         </option>
-        {coordinates.map((coord) => (
-          <option key={coord.id} value={coord.id}>
-            {coord.id}
+        {coordinateIds.map((id) => (
+          <option key={id} value={id}>
+            {id}
           </option>
         ))}
       </select>
