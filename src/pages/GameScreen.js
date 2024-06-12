@@ -31,18 +31,24 @@ const GameScreen = () => {
 
   return data ? (
     <div className="game-screen">
-      <ImageArea
-        images={data.images}
-        correctImage={data.correctAnswerImage}
-        showCorrectAnswer={showCorrectAnswer}
-      />
-      <MapArea
-        startPoint={data.startPoint}
-        correctAnswer={data.correctAnswer}
-        selectedCoords={selectedCoords}
-        showCorrectAnswer={showCorrectAnswer}
-        onSelectCoords={setSelectedCoords}
-      />
+      <div className="main">
+        <div className="image-container">
+          <ImageArea
+            images={data.images}
+            correctImage={data.correctAnswerImage}
+            showCorrectAnswer={showCorrectAnswer}
+          />
+        </div>
+        <div className="map-container">
+          <MapArea
+            startPoint={data.startPoint}
+            correctAnswer={data.correctAnswer}
+            selectedCoords={selectedCoords}
+            showCorrectAnswer={showCorrectAnswer}
+            onSelectCoords={setSelectedCoords}
+          />
+        </div>
+      </div>
       <div className="buttons">
         <button onClick={() => navigate(-1)}>Back</button>
         <button onClick={handleConfirm}>Confirm</button>
